@@ -15,6 +15,22 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
+app.get('/search', function(req, res) {
+  var endPointSpotify = "https://api.spotify.com/v1/search?q="+req.query.q+"type=track&limit=10";
+
+  var buffer = "";
+
+  https.get(endPointSpotify,function(response) {
+    response.on('data', function(d){
+      buffer += d;
+    });
+
+    response.on('end', function (err) {
+      res.render('index', { items: JSON.parse(buffer) });
+    });
+  });
+});
+
 app.listen(3000, function() {
   console.log('Node Server Running');
 });

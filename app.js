@@ -6,6 +6,9 @@ var hbs = require('hbs');
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 
+/* Assets */
+app.use(express.static('public'));
+
 /* Routes */
 app.get('/', function(req, res) {
   res.render('index');
